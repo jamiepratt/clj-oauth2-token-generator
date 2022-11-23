@@ -1,0 +1,12 @@
+{:paths ["src" "resources"]
+ :deps
+ {org.clojure/clojure {:mvn/version "1.11.1"}
+  sudharsh/clj-oauth2 {:mvn/version "0.5.3"}
+  ring/ring {:mvn/version "1.9.6"}
+  compojure/compojure {:mvn/version "1.7.0"}
+  org.apache.httpcomponents/httpclient {:mvn/version "4.5.13"}
+  clj-http/clj-http {:mvn/version "3.12.3"}}
+ ;; Run with clj -T:build function-in-build
+ :aliases
+ {:build {:deps {io.github.clojure/tools.build {:git/tag "v0.8.5" :git/sha "9c738da"}}
+         :ns-default build}}}

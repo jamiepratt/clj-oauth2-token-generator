@@ -8,7 +8,8 @@
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
             [ring.middleware.params :refer [wrap-params]]
             [compojure.core :refer (defroutes GET context)]
-            [ring.adapter.jetty :as jetty]))
+            [ring.adapter.jetty :as jetty])
+  (:gen-class))
 
 (def config (edn/read-string (slurp (io/resource "config.edn"))))
 
@@ -49,7 +50,8 @@
   (GET "/oauth2callback" []
        save-token))
 
-(defn -main []
+(defn -main [ & _]
+  (println "Starting app.") 
   (jetty/run-jetty (-> authentication-controller
                        wrap-keyword-params
                        wrap-params)
