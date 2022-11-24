@@ -11,12 +11,12 @@ described in the
 
 ## Options
 
-Put a config.edn file into the resources directory.  Use
-config-sample.edn as example.
+Put a .env file into the top directory.  Use
+example.env as example.
 
 ## Usage
 
-    $ lein run
+    Jack-in with calva on vscode to deps.edn
     
 Send your users to the ```/google-oauth``` URL on your server to
 generate a token.

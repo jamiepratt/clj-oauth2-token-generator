@@ -1,5 +1,6 @@
 (ns clj-oauth2-token-generator.core
-  (:require [clojure.java.io :as io]
+  (:require [clojure.string :as str]
+            [clojure.java.io :as io]
             [clojure.edn :as edn]
             [clojure.pprint :refer [pprint]]
             [clj-http.client :as http]
@@ -11,7 +12,32 @@
             [ring.adapter.jetty :as jetty])
   (:gen-class))
 
-(def config (edn/read-string (slurp (io/resource "config.edn"))))
+
+(defn env [m & {:keys [prefix separator] :or {prefix "" separator ""}}]
+  (into {}
+        (map (fn [[k-kw entry]]
+               (let [k (->>
+                        k-kw
+                        name
+                        str/upper-case
+                        (#(str/replace % "-" "_"))
+                        (str prefix))]
+                 [k-kw
+                  (if (map? entry)
+                    (env entry :prefix (str k separator))
+                    (or (System/getenv k) entry))]))
+             m)))
+
+(comment (env {:a
+               {:th "sdfsf"}} :prefix "P") ;; => {:a {:th "/opt....etc."}}
+         )
+
+
+
+(def config
+  (-> (edn/read-string (slurp (io/resource "config.edn")))
+      (env :prefix "OAUTH2_TOKEN_GEN_" :separator "_")))
+
 
 (def oauth-params (merge {;; These should be set in the oauth-params.edn file
                           :redirect-uri "https://example.com.com/oauth2callback"
