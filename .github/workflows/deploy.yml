@@ -1,0 +1,23 @@
+name: remote ssh command
+on:
+  push:
+    branches:
+      - deploy
+
+jobs:
+  deployment:
+    name: deploy
+    runs-on: ubuntu-latest
+    environment: deploy
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.IP_ADDRESS }}
+        username: root
+        password: ${{ secrets.PASSWORD }}
+        port: 22  
+        script: |
+              cd clj-oauth2-token-generator/
+              git pull
+              docker-compose up -d --build app
