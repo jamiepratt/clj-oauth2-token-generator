@@ -5,7 +5,9 @@
   ring/ring {:mvn/version "1.9.6"}
   compojure/compojure {:mvn/version "1.7.0"}
   org.apache.httpcomponents/httpclient {:mvn/version "4.5.13"}
-  clj-http/clj-http {:mvn/version "3.12.3"}}
+  clj-http/clj-http {:mvn/version "3.12.3"}
+  nrepl/nrepl {:mvn/version,"1.0.0"}
+  cider/cider-nrepl {:mvn/version,"0.28.7"}}
  ;; Run with clj -T:build function-in-build
  :aliases
  {:build {:deps {io.github.clojure/tools.build {:git/tag "v0.8.5" :git/sha "9c738da"}}

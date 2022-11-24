@@ -9,7 +9,9 @@
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
             [ring.middleware.params :refer [wrap-params]]
             [compojure.core :refer (defroutes GET context)]
-            [ring.adapter.jetty :as jetty])
+            [ring.adapter.jetty :as jetty]
+            [nrepl.server :as nrepl-server]
+            [cider.nrepl :refer (cider-nrepl-handler)])
   (:gen-class))
 
 
@@ -77,7 +79,8 @@
        save-token))
 
 (defn -main [ & _]
-  (println "Starting app.") 
+  (println "Starting app.")
+  (nrepl-server/start-server :port 54654 :handler cider-nrepl-handler)
   (jetty/run-jetty (-> authentication-controller
                        wrap-keyword-params
                        wrap-params)
