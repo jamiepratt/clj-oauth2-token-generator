@@ -27,7 +27,7 @@
                  [k-kw
                   (if (map? entry)
                     (env entry :prefix (str k separator))
-                    (or (System/getenv k) entry))]))
+                    (or (edn/read-string(System/getenv k)) entry))]))
              m)))
 
 (comment (env {:a
