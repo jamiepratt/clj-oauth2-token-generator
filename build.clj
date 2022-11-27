@@ -2,7 +2,7 @@
   (:require [clojure.tools.build.api :as b]))
 
 (def class-dir "target/classes")
-(def basis (b/create-basis {:project "deps.edn"}))
+(def basis (b/create-basis {:project "deps.edn" :aliases [:dev]}))
 (def uber-file "target/app-standalone.jar")
 
 (defn clean [_]
