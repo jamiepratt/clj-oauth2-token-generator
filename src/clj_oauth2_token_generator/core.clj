@@ -80,7 +80,10 @@
 
 (defn -main [ & _]
   (println "Starting app.")
-  (nrepl-server/start-server :port 54654 :handler cider-nrepl-handler)
+  (nrepl-server/start-server
+   :port 54654
+   :bind "0.0.0.0"
+   :handler cider-nrepl-handler)
   (jetty/run-jetty (-> authentication-controller
                        wrap-keyword-params
                        wrap-params)
